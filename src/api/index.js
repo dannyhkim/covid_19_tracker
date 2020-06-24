@@ -13,7 +13,7 @@ export const fetchData = async () => {
             deaths,
             lastUpdate
         }
-        return response;
+        return modifiedData;
     } catch (error) {
 
     }
