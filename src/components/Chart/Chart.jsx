@@ -5,7 +5,7 @@ import styles from './Chart.module.css';
 
 const Chart = () => {
     // hook - dailyData is state, setDailyData is setState function
-    const [dailyData, setDailyData] = useState({});
+    const [dailyData, setDailyData] = useState([]);
 
     useEffect(() => {
         const fetchAPI = async () => {
@@ -15,20 +15,35 @@ const Chart = () => {
     });
 
     const lineChart = (
-        // if dailyData first element is available, return line chart
-        dailyData[0] 
+        // if dailyData is available, display chart
+        dailyData.length
         ? (
            <Line
             data={{
-                labels: '',
-                datasets: [{}, {}],
+                // mapping 
+                labels: dailyData.map(({ date }) => date),
+                datasets: [{
+                    data: dailyData.map(({ confirmed }) => confirmed),
+                    label: "Infected",
+                    borderColor: '#3333ff',
+                    fill: true,
+
+                }, {
+                    data: dailyData.map(({ deaths }) => deaths),
+                    label: "Deaths",
+                    borderColor: 'red',
+                    backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                    fill: true,
+                }],
             }}
            />) : null
         
     );
 
     return (
-        <h1>Chart</h1>
+        <div className={styles.container}>
+            {lineChart}
+        </div>
     )
 }
 
