@@ -36,3 +36,15 @@ export const fetchDailyData = async () => {
 
     }
 }
+
+export const fetchCountries = async () => {
+    try {
+        const { data: { countries }} = await axios.get(`${url}/countries`);
+        
+        // return only country names 
+        return countries.map((country) => country.name);
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
